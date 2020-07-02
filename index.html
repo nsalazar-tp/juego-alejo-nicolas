@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Alejo & Nicolás</title>
+
+    <style>
+        .carta{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .carta:hover{
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body style="margin:0px;">
+    <div style="display: flex; background-color: black; justify-content: center; height: 100vh;">
+        <div style="text-align: center; display:flex; width: 75%; align-items: center;">
+            <div style="flex:1">
+                <div class="carta">
+                    <img src="" id="carta1" />
+                </div>
+            </div>
+
+            <div style="flex:1">
+                <div class="carta">
+                    <img src="" id="carta2" />
+                </div>
+            </div>
+
+            <div style="flex:1">
+                <div class="carta">
+                    <img src="" id="carta3" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function obtenerCartasAleatoria() {
+            fetch("https://deckofcardsapi.com/api/deck/153gbbn7pw00/draw/?count=3", {
+                method: "GET",
+            })
+                .then(resultado => {
+                    resultado.json()
+                        .then(dataDeLasCartas => {
+                            document.getElementById("carta1").src = dataDeLasCartas.cards[0].image;
+                            document.getElementById("carta2").src = dataDeLasCartas.cards[1].image;
+                            document.getElementById("carta3").src = dataDeLasCartas.cards[2].image;
+                        })
+                        .catch((error) => { console.log(error); });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+        obtenerCartasAleatoria();
+    </script>
+</body>
+
+</html>
